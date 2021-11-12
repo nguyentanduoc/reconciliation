@@ -24,7 +24,7 @@ Mappers are used to converting the form of data when transferred between layers.
     - Model Mapper: This will map any data to the Model.
     - DTO Mapper: This will map any data to DTOs.
 # Project Structure
-![HighLevelDesign")](asset/microservice.png?raw=true "HighLevelDesign")
+![microservice")](asset/microservice.PNG?raw=true "microservice")
 
 I have 5 services
 - authentication-service:  Server that authenticates the Resource Owner and issues access tokens after getting proper authorization
