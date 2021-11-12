@@ -73,15 +73,15 @@ I have 5 services
     1. authentication-service:
         - open `authentication-service\src\main\resources\application.properties`
         - edit: user and password
-        ![edit-authentication-service")](asset/edit-authentication-service.PNG?raw=true "edit-authentication-service")
+        ![edit-authentication-service")](asset/edit-authentication-service.png?raw=true "edit-authentication-service")
     2. transaction-service:
         - open `transaction-service\src\main\resources\application.properties`
         - edit: user and password
-        ![edit-transactionservice")](asset/edit-transactionservice.PNG?raw=true "edit-transactionservice")
+        ![edit-transaction-service")](asset/edit-transactionservice.png?raw=true "edit-transactionservice")
     3. history-service:
         - open `history-service\src\main\resources\application.properties`
         - edit: user and password
-        ![edit-history-service")](asset/edit-history-service.PNG?raw=true "edit-history-service")
+        ![edit-history-service")](asset/edit-history-service.png?raw=true "edit-history-service")
 
 3. D-click `start-discover-service` (waiting for the service started successfully)
 4. D-click `start-authentication-service` (waiting for the service started successfully)
@@ -109,7 +109,7 @@ I have 5 services
    curl --location --request GET 'http://localhost:8888/transaction-service/transaction/?page=1' \
     --header 'Authorization: Bearer ${token get from api get token}'
    ```
-4. Get All historis
+4. Get All histories
     ```
     curl --location --request GET 'http://localhost:8888/history-service/history?page=0' \
     --header 'Authorization: Bearer ${token get from api get token}'
