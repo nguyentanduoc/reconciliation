@@ -1,0 +1,30 @@
+server.port: 8888
+eureka.client.service-url.default-zone: http://localhost:8761/eureka
+spring:
+  application.name: api-gateway
+  profiles.active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: transaction-service
+          uri: lb://transaction-service
+          predicates:
+            - Path=/transaction-service/**
+          filters:
+            - RewritePath=/transaction-service(?<segment>/?.*), $\{segment}
+        - id: history-service
+          uri: lb://history-service
+          predicates:
+            - Path=/history-service/**
+          filters:
+            - RewritePath=/history-service(?<segment>/?.*), $\{segment}
+        - id: authentication-service
+          uri: lb://authentication-service
+          predicates:
+            - Path=/authentication-service/**
+          filters:
+            - RewritePath=/authentication-service(?<segment>/?.*), $\{segment}
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG

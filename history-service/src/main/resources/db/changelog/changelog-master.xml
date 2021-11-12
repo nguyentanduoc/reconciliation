@@ -1,0 +1,8 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <include file="db/changelog/changelogs/202111102305_create_table_history.xml"/>
+    <include file="db/changelog/changelogs/202111102324_alter_table_history.xml"/>
+</databaseChangeLog>

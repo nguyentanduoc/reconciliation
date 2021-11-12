@@ -1,0 +1,39 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="1" author="ntduoc">
+        <dropColumn catalogName="cat"
+                    columnName="id"
+                    schemaName="public"
+                    tableName="history">
+            <column name="updated_by"/>
+        </dropColumn>
+        <addColumn catalogName="cat" schemaName="public" tableName="history">
+            <column name="updated_by" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="ntduoc">
+        <dropColumn catalogName="cat"
+                    columnName="id"
+                    schemaName="public"
+                    tableName="history">
+            <column name="updated_by"/>
+        </dropColumn>
+        <addColumn catalogName="cat" schemaName="public" tableName="history">
+            <column name="created_by" type="bigint"/>
+            <column name="creation_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="ntduoc">
+        <dropColumn catalogName="cat"
+                    columnName="id"
+                    schemaName="public"
+                    tableName="history">
+            <column name="updated_at"/>
+        </dropColumn>
+    </changeSet>
+</databaseChangeLog>
