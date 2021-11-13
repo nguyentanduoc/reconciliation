@@ -27,11 +27,11 @@ Mappers are used to converting the form of data when transferred between layers.
 ![microservice")](asset/microservice.PNG?raw=true "microservice")
 
 I have 5 services
-- authentication-service:  Server that authenticates the Resource Owner and issues access tokens after getting proper authorization
-- discover-service: Service Registration and Discovery
-- gateway-service: Gateway service
-- transaction-service: Handle upload file and store transactions into the database
-- history-service: Store the history upload
+- Authentication-service: The application that authorizes the client to access the user’s resources exposed by the resource server. When the authorization server decides that a client is authorized to access a resource on behalf of the user, it issues a token. The client uses this token to prove to the resource server that it was authorized by the authorization server. The resource server allows the client to access the resource it requested if it has a valid token.
+- Gateway-service: An API gateway takes all API calls from clients, then routes them to the appropriate microservice with request routing, composition, and protocol translation.
+- Discover-service: 
+- Transaction-service: Handle upload file and store transactions into the database
+- History-service: Store the history upload
 # The code folder structure (transaction-service)
 ![transaction-service-structure")](asset/transaction-service-structure.PNG?raw=true "transaction-service-structure")
 - package config: contain config security
