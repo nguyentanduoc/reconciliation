@@ -29,7 +29,7 @@ Mappers are used to converting the form of data when transferred between layers.
 I have 5 services
 - Authentication-service: The application that authorizes the client to access the user’s resources exposed by the resource server. When the authorization server decides that a client is authorized to access a resource on behalf of the user, it issues a token. The client uses this token to prove to the resource server that it was authorized by the authorization server. The resource server allows the client to access the resource it requested if it has a valid token.
 - Gateway-service: An API gateway takes all API calls from clients, then routes them to the appropriate microservice with request routing, composition, and protocol translation.
-- Discover-service: 
+- Discover-service: Service discovery allows services to find and communicate with each other without hard-coding hostname and port
 - Transaction-service: Handle upload file and store transactions into the database
 - History-service: Store the history upload
 # The code folder structure (transaction-service)
