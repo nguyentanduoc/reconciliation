@@ -1,14 +1,13 @@
 package com.ntd.bank.transactionservice.service.impl;
 
-import com.ntd.bank.transactionservice.communication.HistoryClient;
 import com.ntd.bank.transactionservice.component.ReadPlugin;
 import com.ntd.bank.transactionservice.dto.PageResult;
 import com.ntd.bank.transactionservice.dto.TransactionDto;
-import com.ntd.bank.transactionservice.dto.client.HistoryDto;
 import com.ntd.bank.transactionservice.enums.HistoryStatus;
 import com.ntd.bank.transactionservice.exception.NotFoundById;
 import com.ntd.bank.transactionservice.model.Transaction;
 import com.ntd.bank.transactionservice.repository.TransactionRepository;
+import com.ntd.bank.transactionservice.service.HistoryService;
 import com.ntd.bank.transactionservice.service.TransactionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
     private PluginRegistry<ReadPlugin, String> readPlugin;
 
     @Autowired
-    private HistoryClient historyClient;
+    private HistoryService historyService;
 
     @Override
     public TransactionDto save(TransactionDto transactionDto) {
@@ -57,9 +55,9 @@ public class TransactionServiceImpl implements TransactionService {
             if (!ObjectUtils.isEmpty(transactions)) {
                 transactionRepository.saveAll(transactions);
             }
-            this.saveHistory(fileName, HistoryStatus.SUCCESS);
+            historyService.saveHistory(fileName, HistoryStatus.SUCCESS);
         } catch (Exception ex) {
-            this.saveHistory(fileName, HistoryStatus.FAIL);
+            historyService.saveHistory(fileName, HistoryStatus.FAIL);
         }
     }
 
@@ -104,15 +102,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void delete(Long id) {
         transactionRepository.deleteById(id);
-    }
-
-    private void saveHistory(String fileName, HistoryStatus status) {
-        HistoryDto historyDto = HistoryDto.builder()
-                .fileName(fileName)
-                .status(status)
-                .updatedAt(LocalDateTime.now())
-                .build();
-        historyClient.save(historyDto);
     }
 
 }

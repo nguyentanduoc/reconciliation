@@ -3,7 +3,6 @@
 # Principles
 <ul>
     <li>Single Responsibility Principle</li>
-    <li>Interface Segregation Principle</li>
     <li>Dependency Inversion Principle</li>
 </ul>
 
