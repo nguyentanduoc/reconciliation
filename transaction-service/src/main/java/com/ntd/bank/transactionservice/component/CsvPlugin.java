@@ -17,7 +17,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class CsvPlugin implements ReadPlugin {
+public class CsvPlugin extends AbsReadPlugin implements ReadPlugin {
 
     @Override
     public boolean supports(String s) {
@@ -43,23 +43,30 @@ public class CsvPlugin implements ReadPlugin {
             return null;
         }
         Transaction transaction = new Transaction();
-        //get date
-        String dateStr = values[0];
-        LocalDateTime localDateTime = LocalDateTime.parse(dateStr, DateUtils.DATE_TIME_FORMATTER);
-        transaction.setDate(localDateTime);
-        //get content
-        String content = values[1];
-        transaction.setContent(content);
+        transaction.setDate(this.getDate(values));
+        transaction.setContent(values[INDEX_CONTENT]);
+        transaction.setAmount(this.getAmount(values));
+        transaction.setType(values[INDEX_TYPE]);
+        return this.checkNull(transaction) ? null : transaction;
 
-        //get Amount
-        String amount = values[2];
-        transaction.setAmount(Double.parseDouble(amount));
+    }
 
-        //get Type
-        String type = values[3];
-        transaction.setType(type);
+    private LocalDateTime getDate(String[] values) {
+        try {
+            String dateStr = values[INDEX_DATE];
+            return LocalDateTime.parse(dateStr, DateUtils.DATE_TIME_FORMATTER);
+        } catch (Exception exception) {
+            log.error(exception.getMessage(), exception);
+            return null;
+        }
+    }
 
-        return transaction;
-
+    private Double getAmount(String[] values) {
+        try {
+            return Double.parseDouble(values[INDEX_AMOUNT]);
+        } catch (Exception exception) {
+            log.error(exception.getMessage(), exception);
+            return null;
+        }
     }
 }

@@ -9,6 +9,7 @@ import com.ntd.bank.transactionservice.model.Transaction;
 import com.ntd.bank.transactionservice.repository.TransactionRepository;
 import com.ntd.bank.transactionservice.service.HistoryService;
 import com.ntd.bank.transactionservice.service.TransactionService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
@@ -57,6 +59,7 @@ public class TransactionServiceImpl implements TransactionService {
             }
             historyService.saveHistory(fileName, HistoryStatus.SUCCESS);
         } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
             historyService.saveHistory(fileName, HistoryStatus.FAIL);
         }
     }

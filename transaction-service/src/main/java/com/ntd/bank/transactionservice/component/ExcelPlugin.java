@@ -21,7 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class ExcelPlugin implements ReadPlugin {
+public class ExcelPlugin extends AbsReadPlugin implements ReadPlugin {
 
     @Override
     public boolean supports(String s) {
@@ -54,7 +54,9 @@ public class ExcelPlugin implements ReadPlugin {
                 continue;
             }
             Transaction transaction = this.assignTransaction(row);
-            transactions.add(transaction);
+            if (!ObjectUtils.isEmpty(transaction)) {
+                transactions.add(transaction);
+            }
         }
         return transactions;
     }
@@ -64,22 +66,48 @@ public class ExcelPlugin implements ReadPlugin {
             return null;
         }
         Transaction transaction = new Transaction();
-        //get date
-        String dateStr = row.getCell(0).getStringCellValue();
-        LocalDateTime localDateTime = LocalDateTime.parse(dateStr, DateUtils.DATE_TIME_FORMATTER);
-        transaction.setDate(localDateTime);
-        //get content
-        String content = row.getCell(1).getStringCellValue();
-        transaction.setContent(content);
+        transaction.setDate(this.getDate(row));
+        transaction.setContent(this.getContent(row));
+        transaction.setAmount(this.getAmount(row));
+        transaction.setType(this.getType(row));
+        return this.checkNull(transaction) ? null : transaction;
+    }
 
-        //get Amount
-        Double amount = row.getCell(2).getNumericCellValue();
-        transaction.setAmount(amount);
 
-        //get Type
-        String type = row.getCell(3).getStringCellValue();
-        transaction.setType(type);
+    private LocalDateTime getDate(Row row) {
+        try {
+            String dateStr = row.getCell(INDEX_DATE).getStringCellValue();
+            return LocalDateTime.parse(dateStr, DateUtils.DATE_TIME_FORMATTER);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+            return null;
+        }
+    }
 
-        return transaction;
+    private String getContent(Row row) {
+        try {
+            return row.getCell(INDEX_CONTENT).getStringCellValue();
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+            return null;
+        }
+    }
+
+    private Double getAmount(Row row) {
+        try {
+            return row.getCell(INDEX_AMOUNT).getNumericCellValue();
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+            return null;
+        }
+    }
+
+    private String getType(Row row) {
+        try {
+            return row.getCell(INDEX_TYPE).getStringCellValue();
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            return null;
+        }
     }
 }
