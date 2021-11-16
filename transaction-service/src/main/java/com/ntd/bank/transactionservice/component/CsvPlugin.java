@@ -33,7 +33,9 @@ public class CsvPlugin extends AbsReadPlugin implements ReadPlugin {
 
         while ((values = csvReader.readNext()) != null) {
             Transaction transaction = this.assignTransaction(values);
-            transactions.add(transaction);
+            if (!ObjectUtils.isEmpty(transaction)) {
+                transactions.add(transaction);
+            }
         }
         return transactions;
     }

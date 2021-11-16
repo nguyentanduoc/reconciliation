@@ -61,6 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             historyService.saveHistory(fileName, HistoryStatus.FAIL);
+            throw new RuntimeException(ex);
         }
     }
 
